@@ -1,4 +1,4 @@
-import { setTimeout as _setTimeout, clearTimeout as _clearTimeout } from 'worker-timers'
+import * as workerTimers from 'worker-timers'
 import { useEffect, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -60,13 +60,13 @@ export const useIdleTimeout = (callback: (state: UseIdleTimeoutState) => void, t
     useEffect(() => {
         setTimerIsRunning(true);
 
-        const timeoutId = _setTimeout(() => {
+        const timeoutId = workerTimers.setTimeout(() => {
             callbackRef.current(activeRef.current ? "active" : "idle");
             setTimerIsRunning(false);
         }, timeout);
 
         return () => {
-            _clearTimeout(timeoutId);
+            workerTimers.clearTimeout(timeoutId);
         };
     }, [timeout, __internalCounter]);
 
