@@ -1,5 +1,5 @@
 {
-  "name": "on-active-timeout-hook",
+  "name": "use-idle-timeout",
   "version": "0.1.0",
   "private": true,
   "scripts": {
