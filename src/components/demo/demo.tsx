@@ -37,7 +37,7 @@ export const Demo = () => {
             <p>timerIsRunning: {`${timerIsRunning}`}</p>
             <p style={{color: duration < timeout ? 'green' : 'red'}}>duration: {duration/1000}s</p>
             <button onClick={onClick}>Reset</button>
-            {message && <h3>{message}</h3>}
+            {message && <><br></br><h3>{message}</h3></>}
         </div>
     );
 };

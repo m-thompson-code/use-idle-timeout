@@ -41,6 +41,7 @@ export const Demo2 = () => {
 
             {showPrompt && (
                 <>
+                    <br></br>
                     <h3>Session is going to expire</h3>
                     <p>Click continue plz</p>
                     <button onClick={renewSession}>Continue</button>

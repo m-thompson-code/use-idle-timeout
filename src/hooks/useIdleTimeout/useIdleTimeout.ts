@@ -1,3 +1,4 @@
+import { setTimeout as _setTimeout, clearTimeout as _clearTimeout } from 'worker-timers'
 import { useEffect, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -13,7 +14,7 @@ export interface UseIdleTimeout {
 
 export const useIdleTimeout = (callback: (state: UseIdleTimeoutState) => void, timeout?: number): UseIdleTimeout => {
     const [timerIsRunning, setTimerIsRunning] = useState(true);
-    const [__internalCounter, __getInternalCounter] = useState(0);
+    const [__internalCounter, __getInternalCounter] = useState(0);// TODO Is there a better way to handle reset for setTimeout
     const [active, setActive] = useState(false);
     const activeRef = useRef(active);// Used to avoid resetting timeout
     const callbackRef = useRef(callback);
@@ -59,13 +60,13 @@ export const useIdleTimeout = (callback: (state: UseIdleTimeoutState) => void, t
     useEffect(() => {
         setTimerIsRunning(true);
 
-        const timeoutId = window.setTimeout(() => {
+        const timeoutId = _setTimeout(() => {
             callbackRef.current(activeRef.current ? "active" : "idle");
             setTimerIsRunning(false);
         }, timeout);
 
         return () => {
-            clearTimeout(timeoutId);
+            _clearTimeout(timeoutId);
         };
     }, [timeout, __internalCounter]);
 
